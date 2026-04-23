@@ -26,9 +26,10 @@
 
 /obj/item/implant/compressed/implanted(mob/source)
 	src.activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_v", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "slowclap", "smile", "pale", "sniff", "whimper", "wink")
+	var/emote_prefix = source.get_prefix_key(/singleton/prefix/custom_emote)
 	if (source.mind)
-		source.StoreMemory("Compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", /singleton/memory_options/system)
-	to_chat(source, "The implanted compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.")
+		source.StoreMemory("Compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say [emote_prefix][src.activation_emote]</B> to attempt to activate.", /singleton/memory_options/system)
+	to_chat(source, "The implanted compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say [emote_prefix][src.activation_emote]</B> to attempt to activate.")
 	return TRUE
 
 /obj/item/implanter/compressed
