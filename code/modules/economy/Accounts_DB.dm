@@ -125,11 +125,10 @@
 
 				var/datum/money_account/new_account = create_account("[account_name]'s Personal Account", account_name, starting_funds, ACCOUNT_TYPE_PERSONAL, src)
 				if(starting_funds > 0)
-					//subtract the money
+					// Subtract from the station account to balance the transfer.
+					// Do NOT deposit into new_account here - create_account() already credited it internally via T.perform().
+					// Doing so would double-credit the account, allowing the full balance to be revoked back to the station for a net gain.
 					station_account.money -= starting_funds
-
-					//create a transaction log entry
-					new_account.deposit(starting_funds, "New account activation", machine_id)
 
 					creating_new_account = 0
 					ui.close()
