@@ -214,7 +214,6 @@
 	if (active)
 		playsound(src, 'sound/obj/item/shield/energy/shield-start.ogg', 40)
 		force = 10
-		w_class = ITEM_SIZE_NO_CONTAINER
 
 	if (istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -234,7 +233,6 @@
 	if (!active)
 		playsound(src, 'sound/obj/item/shield/energy/shield-stop.ogg', 40)
 		force = initial(force)
-		w_class = initial(w_class)
 
 	update_icon()
 
@@ -293,6 +291,12 @@
 		deactivate()
 	update_icon()
 	GLOB.empd_event.raise_event(src, severity)
+
+
+/obj/item/shield/energy/get_storage_cost()
+	if (active)
+		return ITEM_SIZE_NO_CONTAINER
+	return ..()
 
 
 /obj/item/shield/energy/proc/UpdateSoundLoop()
